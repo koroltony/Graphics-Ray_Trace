@@ -19,14 +19,14 @@ image = np.zeros((height, width, 3), dtype=np.uint8)
 
 # modify the matrix to your desired image output
 
-for i in range(len(image[1])-1):
-    for j in range(len(image[2])-1):
+for i in range(len(image[1])):
+    for j in range(len(image[2])):
 
         # create decimal values for RGB colors in each pixel
 
-        r = np.double(i)/(width-1)
-        g = np.double(j)/(height-1)
-        b = 0.0
+        r = np.double(i)/(height-1)
+        g = 0.0
+        b = np.double(j)/(width-1)
 
         # Create uint8 representation of colors
 
