@@ -25,8 +25,8 @@ for i in range(len(image[1])):
         # create decimal values for RGB colors in each pixel
 
         r = np.double(i)/(height-1)
-        g = 0.0
-        b = np.double(j)/(width-1)
+        g = np.double(j)/(width-1)
+        b = 0.0
 
         # Create uint8 representation of colors
 
