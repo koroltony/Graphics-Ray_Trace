@@ -100,7 +100,7 @@ class vec3:
         return vec3([x,y,z])
 
     def unit_vector(self):
-        return self.e/len(self.e)
+        return vec3(self.e/self.length())
 
 # Test cases for class functions:
 
