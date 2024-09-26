@@ -21,7 +21,7 @@ class ray:
     # return coordinates at step "t" from origin
 
     def at(self,t):
-        return self.origin.e + t*self.direction.e
+        return vec3(self.origin.e + t*self.direction.e)
 
 # create the example using Vec3 operations
 '''
@@ -61,15 +61,25 @@ def hit_sphere(center,radius,r):
 
     disc = b*b - 4*a*c
 
-    return disc >= 0
+    # Return the "t" point at which the ray hits the sphere (only positive for now)
+
+    if disc < 0:
+        return -1.0
+
+    else:
+        return (-b - np.sqrt(disc))/(2*a)
 
 
 # Function for ray color (gradient background):
 
 def ray_color(ray):
 
-    if (hit_sphere(point3([0,0,-1]),0.5,ray)):
-        return color([1,0,0])
+    # specify the "t" or spatial unit at which the ray hits the sphere
+
+    t = hit_sphere(point3([0,0,-1]),0.5,r)
+    if (t > 0.0):
+        N = (ray.at(t) - vec3([0,0,-1])).unit_vector()
+        return 0.5*color([N.x+1,N.y+1,N.z+1])
 
     unit_direction = (ray.direction).unit_vector()
 
