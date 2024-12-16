@@ -1,5 +1,6 @@
 from vec3 import vec3
 from color import create_color
+import matplotlib.pyplot as plt
 
 import numpy as np, imageio
 
@@ -76,7 +77,7 @@ def ray_color(ray):
 
     # specify the "t" or spatial unit at which the ray hits the sphere
 
-    t = hit_sphere(point3([0,0,-1]),0.5,r)
+    t = hit_sphere(point3([0,0,-1]),0.5,ray)
     if (t > 0.0):
         N = (ray.at(t) - vec3([0,0,-1])).unit_vector()
         return 0.5*color([N.x+1,N.y+1,N.z+1])
@@ -154,6 +155,7 @@ for i in range(image_height):
         image[i,j,:] = create_color(pixel_color)
 
 imageio.imwrite('output4.png', image)
+plt.imshow(image)
 
 
 
