@@ -4,6 +4,12 @@ import matplotlib.pyplot as plt
 
 import numpy as np, imageio
 
+# import the methods needed for abstract classes:
+
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from typing import Optional
+
 # create aliases for vec3 to represent points and colors:
 
 color = vec3
@@ -53,7 +59,7 @@ imageio.imwrite('output2.png', image)
 
 # Create and add a sphere to the render:
 
-def hit_sphere(center,radius,r):
+def hit_sphere_comp(center,radius,r):
     # using dot product to test if rays are hitting sphere surface:
     center_offset = center - r.origin
     a = r.direction.dot(r.direction)
@@ -69,6 +75,26 @@ def hit_sphere(center,radius,r):
 
     else:
         return (-b - np.sqrt(disc))/(2*a)
+
+# Create and add a sphere to the render:
+
+def hit_sphere(center,radius,r):
+    # using dot product to test if rays are hitting sphere surface:
+    center_offset = center - r.origin
+    a = r.direction.len_squared()
+    # using h = -b/2
+    h = r.direction.dot(center_offset)
+    c = center_offset.len_squared() - radius*radius
+
+    disc = h*h - a*c
+
+    # Return the "t" point at which the ray hits the sphere (only positive for now)
+
+    if disc < 0:
+        return -1.0
+
+    else:
+        return (h - np.sqrt(disc))/(a)
 
 
 # Function for ray color (gradient background):
@@ -88,6 +114,7 @@ def ray_color(ray):
 
     a = 0.5*(unit_direction.y + 1.0)
     return (1.0-a)*color([1.0,1.0,1.0]) + a*color([0.5,0.7,1.0])
+
 
 # set up image environment:
 
