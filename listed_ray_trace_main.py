@@ -15,7 +15,7 @@ from typing import Optional
 color = vec3
 point3 = vec3
 
-# random comment for git test
+# test commit again!
 
 # Create Ray Class:
 
